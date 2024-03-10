@@ -3,6 +3,7 @@ import ui.UserInterface;
 import accounts.Account;
 import accounts.AccountBase;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainAuth {
     public static void main(String[] args) {
@@ -33,11 +34,17 @@ public class MainAuth {
                         ui.askForNewPasswordConfirm();
                         newPasswordsMatch = password.equals(scnr.nextLine());
                     }
-                    Account acc = new Account(username, password);
+
+                    Random random = new Random();
+                    String identifier = Integer.toString(random.nextInt());
+
+                    Account acc = new Account(username, password, identifier);
                     db.addAccount(acc);
+                    ui.notifyAccountCreationSuccess(acc);
                     break;
             }
         }
+
     }
 
 }

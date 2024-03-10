@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.Scanner;
+import accounts.Account;
 
 public class UserInterface {
     private Scanner scanner;
@@ -30,6 +31,10 @@ public class UserInterface {
 
     public void notifyNewPasswordMismatch() {
         System.out.println("The passwords do not match. Try again.");
+    }
+
+    public void notifyAccountCreationSuccess(Account a) {
+        System.out.println("Success! Your new account" + " (" + a.getUsername() + ") " + "has been created. ");
     }
 
 }
