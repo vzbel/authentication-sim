@@ -16,4 +16,20 @@ public class UserInterface {
         System.out.println("3: Logout\n");
     }
 
+    public void askForNewUsername() {
+        System.out.println("Type the username you would like to use on the new account.");
+    }
+
+    public void askForNewPassword() {
+        System.out.println("Type your new account's password.");
+    }
+
+    public void askForNewPasswordConfirm() {
+        System.out.println("Type your new account's password again.");
+    }
+
+    public void notifyNewPasswordMismatch() {
+        System.out.println("The passwords do not match. Try again.");
+    }
+
 }

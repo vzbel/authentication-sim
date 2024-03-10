@@ -19,11 +19,20 @@ public class MainAuth {
 
             switch (userInput) {
                 case "1":
-                    System.out.println("Type the username you would like to use on the new account.");
+                    ui.askForNewUsername();
                     String username = scnr.nextLine();
-                    System.out.println("Type your new account's password.");
+                    ui.askForNewPassword();
                     String password = scnr.nextLine();
+                    ui.askForNewPasswordConfirm();
+                    boolean newPasswordsMatch = password.equals(scnr.nextLine());
 
+                    while (!newPasswordsMatch) {
+                        ui.notifyNewPasswordMismatch();
+                        ui.askForNewPassword();
+                        password = scnr.nextLine();
+                        ui.askForNewPasswordConfirm();
+                        newPasswordsMatch = password.equals(scnr.nextLine());
+                    }
                     Account acc = new Account(username, password);
                     db.addAccount(acc);
                     break;
