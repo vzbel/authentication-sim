@@ -33,6 +33,12 @@ public class MainAuth {
                     // pw
                     ui.askForNewPassword();
                     String password = scnr.nextLine();
+
+                    while (!db.passwordLengthIsValid(password, 8)) {
+                        ui.notifyInsufficientPasswordComplexity();
+                        password = scnr.nextLine();
+                    }
+
                     ui.askForNewPasswordConfirm();
                     boolean newPasswordsMatch = password.equals(scnr.nextLine());
 

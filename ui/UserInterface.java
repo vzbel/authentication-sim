@@ -22,7 +22,8 @@ public class UserInterface {
     }
 
     public void askForNewPassword() {
-        System.out.println("Type your new account's password.");
+        System.out.println(
+                "Type your new account's password. (It must be at least 8 characters long, have no empty spaces, and contain a special character.)");
     }
 
     public void askForNewPasswordConfirm() {
@@ -35,6 +36,12 @@ public class UserInterface {
 
     public void notifyUsernameTaken() {
         System.out.println("The username is already taken. Please choose another.");
+    }
+
+    public void notifyInsufficientPasswordComplexity() {
+        System.out.println(
+                "Please choose a stronger password. (Did you add a special character? Is the password at least 8 characters long?");
+
     }
 
     public void notifyAccountCreationSuccess(Account a) {
