@@ -22,11 +22,21 @@ public class MainAuth {
                 case "1":
                     ui.askForNewUsername();
                     String username = scnr.nextLine();
+
+                    // handle taken username
+                    while (db.usernameExists(username)) {
+                        ui.notifyUsernameTaken();
+                        ui.askForNewUsername();
+                        username = scnr.nextLine();
+                    }
+
+                    // pw
                     ui.askForNewPassword();
                     String password = scnr.nextLine();
                     ui.askForNewPasswordConfirm();
                     boolean newPasswordsMatch = password.equals(scnr.nextLine());
 
+                    // handle password confirmation mismatch
                     while (!newPasswordsMatch) {
                         ui.notifyNewPasswordMismatch();
                         ui.askForNewPassword();
@@ -35,6 +45,7 @@ public class MainAuth {
                         newPasswordsMatch = password.equals(scnr.nextLine());
                     }
 
+                    // gen userID
                     Random random = new Random();
                     String identifier = Integer.toString(random.nextInt());
 

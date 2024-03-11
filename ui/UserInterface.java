@@ -33,6 +33,10 @@ public class UserInterface {
         System.out.println("The passwords do not match. Try again.");
     }
 
+    public void notifyUsernameTaken() {
+        System.out.println("The username is already taken. Please choose another.");
+    }
+
     public void notifyAccountCreationSuccess(Account a) {
         System.out.println("Success! Your new account" + " (" + a.getUsername() + ") " + "has been created. ");
     }
