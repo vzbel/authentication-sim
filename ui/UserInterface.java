@@ -40,7 +40,7 @@ public class UserInterface {
 
     public void notifyInsufficientPasswordComplexity() {
         System.out.println(
-                "Please choose a stronger password. (Did you add a special character? Is the password at least 8 characters long?");
+                "Please choose a stronger password. (Did you add a special character? Is the password at least 8 characters long?)");
 
     }
 

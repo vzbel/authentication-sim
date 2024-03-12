@@ -28,6 +28,6 @@ public class AccountBase {
     }
 
     public boolean passwordLengthIsValid(String password, int minLength) {
-        return password.length() == minLength;
+        return password.length() >= minLength;
     }
 }
