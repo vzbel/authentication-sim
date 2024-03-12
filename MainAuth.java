@@ -34,9 +34,14 @@ public class MainAuth {
                     ui.askForNewPassword();
                     String password = scnr.nextLine();
 
-                    while (!db.passwordLengthIsValid(password, 8)) {
-                        ui.notifyInsufficientPasswordComplexity();
-                        password = scnr.nextLine();
+                    while (!db.passwordLengthIsValid(password, 8) || password.equals(username)) {
+                        if (password.equals(username)) {
+                            ui.notifyPasswordIsTheSameAsUsername();
+                            password = scnr.nextLine();
+                        } else if (!db.passwordLengthIsValid(password, 8)) {
+                            ui.notifyInsufficientPasswordComplexity();
+                            password = scnr.nextLine();
+                        }
                     }
 
                     ui.askForNewPasswordConfirm();

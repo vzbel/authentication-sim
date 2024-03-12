@@ -48,4 +48,8 @@ public class UserInterface {
         System.out.println("Success! Your new account" + " (" + a.getUsername() + ") " + "has been created. ");
     }
 
+    public void notifyPasswordIsTheSameAsUsername() {
+        System.out.println("The password cannot be the same as the username. Please try again.");
+    }
+
 }
