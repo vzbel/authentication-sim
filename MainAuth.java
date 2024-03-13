@@ -64,6 +64,24 @@ public class MainAuth {
                     db.addAccount(acc);
                     ui.notifyAccountCreationSuccess(acc);
                     break;
+                case "2":
+                    ui.loginPromptUsername();
+                    String loginUsername = scnr.nextLine();
+
+                    while (!db.usernameExists(loginUsername)) {
+                        ui.notifyUsernameDoesNotExist();
+                        loginUsername = scnr.nextLine();
+                    }
+
+                    ui.loginPromptPassword();
+                    String loginPassword = scnr.nextLine();
+                    while (!db.verifyLogin(loginUsername, loginPassword)) {
+                        ui.notifyIncorrectPassword();
+                        loginPassword = scnr.nextLine();
+                    }
+
+                    ui.notifySuccessfulLogin(loginUsername);
+                    break;
             }
         }
 

@@ -21,13 +21,20 @@ public class AccountBase {
     }
 
     public boolean usernameExists(String username) {
-        if (usernames.contains(username)) {
-            return true;
-        }
-        return false;
+        return usernames.contains(username);
     }
 
     public boolean passwordLengthIsValid(String password, int minLength) {
         return password.length() >= minLength;
     }
+
+    public boolean verifyLogin(String username, String password) {
+        for (Account i : this.accounts) {
+            if (i.getUsername().equals(username) && i.verifyPassword(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

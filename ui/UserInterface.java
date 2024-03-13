@@ -52,4 +52,23 @@ public class UserInterface {
         System.out.println("The password cannot be the same as the username. Please try again.");
     }
 
+    public void loginPromptUsername() {
+        System.out.println("Enter your username: ");
+    }
+
+    public void loginPromptPassword() {
+        System.out.println("Enter your password: ");
+    }
+
+    public void notifyUsernameDoesNotExist() {
+        System.out.println("The username does not exist. Try again.");
+    }
+
+    public void notifyIncorrectPassword() {
+        System.out.println("Incorrect Password. Try again.");
+    }
+
+    public void notifySuccessfulLogin(String username) {
+        System.out.println("Success! You are now logged in as: " + username);
+    }
 }
