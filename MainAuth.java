@@ -14,32 +14,33 @@ public class MainAuth {
         // current user data
         String currentUsername = "";
         // temp placeholder account
-        Account currentAccount = new Account("init", "initpw", "0");
+        Account initialAcc = new Account("init", "initpw", "0");
+        // this will later store the user's current account, for now only uses
+        // placeholder
+        Account currentAccount = initialAcc;
 
         while (true) {
             ui.displayMenu();
             String userInput = scnr.nextLine();
-            if (userInput.equals("3")) {
-                break;
-            }
 
             switch (userInput) {
+                // sign up
                 case "1":
                     ui.askForNewUsername();
                     String username = scnr.nextLine();
 
-                    // handle taken usernames
+                    // handling taken usernames
                     while (db.usernameExists(username)) {
                         ui.notifyUsernameTaken();
                         ui.askForNewUsername();
                         username = scnr.nextLine();
                     }
 
-                    // ask user for pw & store
+                    // asking user for pw & store
                     ui.askForNewPassword();
                     String password = scnr.nextLine();
 
-                    // check if password meets requirements
+                    // checking if password meets requirements
                     while (!db.passwordLengthIsValid(password, 8) || password.equals(username)) {
                         if (password.equals(username)) {
                             ui.notifyPasswordIsTheSameAsUsername();
@@ -53,7 +54,7 @@ public class MainAuth {
                     ui.askForNewPasswordConfirm();
                     boolean newPasswordsMatch = password.equals(scnr.nextLine());
 
-                    // handle password confirmation mismatch
+                    // handling password confirmation mismatch
                     while (!newPasswordsMatch) {
                         ui.notifyNewPasswordMismatch();
                         ui.askForNewPassword();
@@ -73,11 +74,12 @@ public class MainAuth {
                     currentUsername = acc.getUsername();
                     currentAccount = acc;
                     break;
+                // log in
                 case "2":
-                    // check if the user is "already logged in"
+                    // checking if the user is "already logged in"
                     if (!currentUsername.isEmpty()) {
                         ui.notifyUserAlreadyLoggedIn(currentAccount.getUsername());
-                        continue;
+                        break;
                     }
                     ui.loginPromptUsername();
                     String loginUsername = scnr.nextLine();
@@ -95,6 +97,37 @@ public class MainAuth {
                     }
 
                     ui.notifySuccessfulLogin(loginUsername);
+                    break;
+                // logout
+                case "3":
+
+                    if (currentAccount.equals(initialAcc)) {
+                        ui.notifyNotLoggedIn();
+                        break;
+                    }
+                    // asking user to confirm logout
+                    ui.askConfirmLogout(currentUsername);
+                    String userLogoutResponse = scnr.nextLine();
+                    boolean isValidResponse = userLogoutResponse.equalsIgnoreCase("Yes")
+                            || userLogoutResponse.equalsIgnoreCase("No");
+
+                    // handling invalid user response to logout confirmation
+                    while (!isValidResponse) {
+                        ui.notifyInvalidLogoutConfirmationResponse();
+                        userLogoutResponse = scnr.nextLine();
+                        isValidResponse = userLogoutResponse.equalsIgnoreCase("Yes")
+                                || userLogoutResponse.equalsIgnoreCase("No");
+                    }
+
+                    // deciding based on user response
+                    if (userLogoutResponse.equalsIgnoreCase("No")) {
+                        ui.notifyReturningToMenu();
+                        break;
+                    } else {
+                        currentAccount = initialAcc;
+                        ui.notifySuccessfulLogout(currentUsername);
+                        currentUsername = "";
+                    }
                     break;
             }
         }

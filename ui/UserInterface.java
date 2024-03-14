@@ -75,4 +75,25 @@ public class UserInterface {
     public void notifyUserAlreadyLoggedIn(String username) {
         System.out.println("Already logged in as: " + username);
     }
+
+    public void askConfirmLogout(String username) {
+        System.out.println("Are you sure you want to log out of the account: " + username + "?");
+        System.out.println("Yes or No?");
+    }
+
+    public void notifyInvalidLogoutConfirmationResponse() {
+        System.out.println("Invalid Response. Please type either Yes or No.");
+    }
+
+    public void notifyReturningToMenu() {
+        System.out.println("Returning to Menu.");
+    }
+
+    public void notifySuccessfulLogout(String username) {
+        System.out.println("Successfully logged out of the account " + username);
+    }
+
+    public void notifyNotLoggedIn() {
+        System.out.println("Not logged into any account.");
+    }
 }
