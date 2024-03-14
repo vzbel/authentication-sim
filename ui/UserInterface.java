@@ -71,4 +71,8 @@ public class UserInterface {
     public void notifySuccessfulLogin(String username) {
         System.out.println("Success! You are now logged in as: " + username);
     }
+
+    public void notifyUserAlreadyLoggedIn(String username) {
+        System.out.println("Already logged in as: " + username);
+    }
 }

@@ -11,6 +11,11 @@ public class MainAuth {
         UserInterface ui = new UserInterface(scnr);
         AccountBase db = new AccountBase();
 
+        // current user data
+        String currentUsername = "";
+        // temp placeholder account
+        Account currentAccount = new Account("init", "initpw", "0");
+
         while (true) {
             ui.displayMenu();
             String userInput = scnr.nextLine();
@@ -23,17 +28,18 @@ public class MainAuth {
                     ui.askForNewUsername();
                     String username = scnr.nextLine();
 
-                    // handle taken username
+                    // handle taken usernames
                     while (db.usernameExists(username)) {
                         ui.notifyUsernameTaken();
                         ui.askForNewUsername();
                         username = scnr.nextLine();
                     }
 
-                    // pw
+                    // ask user for pw & store
                     ui.askForNewPassword();
                     String password = scnr.nextLine();
 
+                    // check if password meets requirements
                     while (!db.passwordLengthIsValid(password, 8) || password.equals(username)) {
                         if (password.equals(username)) {
                             ui.notifyPasswordIsTheSameAsUsername();
@@ -60,11 +66,19 @@ public class MainAuth {
                     Random random = new Random();
                     String identifier = Integer.toString(random.nextInt());
 
+                    // create acc with user's info
                     Account acc = new Account(username, password, identifier);
                     db.addAccount(acc);
                     ui.notifyAccountCreationSuccess(acc);
+                    currentUsername = acc.getUsername();
+                    currentAccount = acc;
                     break;
                 case "2":
+                    // check if the user is "already logged in"
+                    if (!currentUsername.isEmpty()) {
+                        ui.notifyUserAlreadyLoggedIn(currentAccount.getUsername());
+                        continue;
+                    }
                     ui.loginPromptUsername();
                     String loginUsername = scnr.nextLine();
 
